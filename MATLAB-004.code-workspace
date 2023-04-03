@@ -4,5 +4,13 @@
 			"path": "."
 		}
 	],
-	"settings": {}
+	"settings": {
+		"files.associations": {
+			"*.m": "matlab",
+			"string.h": "c",
+			"*.rmd": "markdown",
+			"stdio.h": "c",
+			"stdlib.h": "c"
+		}
+	}
 }

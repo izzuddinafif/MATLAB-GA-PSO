@@ -24,10 +24,11 @@ nHT=0;    % Jumlah HT
 nCC=0;    % Jumlah CC
 
 % Constraints
-YOR >= 65;      % Persen
-DT <= 2.83;     % Hari
-Cslot <= 1.990; % Kontainer
-Tier <= 4;      % Kontainer
+%YOR >= 65;      % Persen
+%DT <= 2.83;     % Hari
+%Cslot <= 1.990; % Kontainer
+%Tier <= 4;      % Kontainer
 
 % Objective Function
 Opt=(PCC*nCC*UCC*BWT*Wd*DT)/(YOR*nRTG*Tier*Cslot*nHT*UHT*PHT);
+
