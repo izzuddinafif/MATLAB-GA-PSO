@@ -16,11 +16,11 @@ This repository contains MATLAB scripts for solving an optimization problem usin
 
 ## Usage
 
-For information on how to use this script, see the [User Guide](user_guide.md).
+For information on how to use this script, see the [User Guide](docs/user_guide.md).
 
 ## Development
 
-For information on how to modify or extend this code, see the [Developer Guide](developer_guide.md).
+For information on how to modify or extend this code, see the [Developer Guide](docs/developer_guide.md).
 
 ## License
 
