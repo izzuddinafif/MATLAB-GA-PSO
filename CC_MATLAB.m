@@ -1,5 +1,6 @@
 % Main script
 close all; clc; clear;
+% Parameter initialization
 max_iterasi = 1000;
 popsize = 100;
 gen = 3;
@@ -17,16 +18,22 @@ c2 = 1;
 b = 21; % constant
 
 % Fungsi utama
+% Initialize the population for the genetic algorithm
 populasi = init_populasi(popsize, gen, lb_a, ub_a, lb_q, ub_q, lb_l, ub_l);
+% Initialize the particles for the particle swarm optimization
 partikel = init_pso(populasi, gen);
+% Find the index of the best particle
 [~, idx] = min(partikel(:, end));
+% Set the global best particle
 gbest = partikel(idx, :);
 
 % Inisialisasi array untuk menyimpan nilai fitness terbaik di setiap iterasi
 best_fitness = zeros(1, max_iterasi);
 
+% Main loop for the hybrid genetic algorithm - particle swarm optimization (GA-PSO) algorithm
 for iterasi = 1:max_iterasi
     % GA
+    % Perform crossover and mutation for the genetic algorithm
     new_populasi = zeros(popsize, gen + 1);
     for i = 1:popsize
         orang_tua = seleksi_roulette_wheel(populasi, popsize);
@@ -37,7 +44,9 @@ for iterasi = 1:max_iterasi
     populasi = new_populasi;
 
     % PSO
+    % Evaluate the fitness for the particles
     partikel = eval_fitness(partikel, b);
+    % Update the local best and global best particles
     for i = 1:popsize
         if partikel(i, end) > partikel(i, gen+1:2*gen)
             partikel(i, gen+1:2*gen) = partikel(i, 1:gen);
@@ -47,34 +56,26 @@ for iterasi = 1:max_iterasi
     if partikel(idx, end) < gbest(end)
         gbest = partikel(idx, :);
     end
+    % Update the particles
     partikel = update_pso(partikel, w, c1, c2, gbest, lb_a, ub_a, lb_q, ub_q, lb_l, ub_l, gen);
 
-    % Simpan nilai fitness terbaik di setiap iterasi
+    % Store the best fitness value in the current iteration
     best_fitness(iterasi) = gbest(end);
-
-    % Tampilkan nilai fitness terbaik di setiap iterasi
-    %disp(['Iterasi ke-' num2str(iterasi) ': ' num2str(gbest(end))]);
-
 end
 
-% Tampilkan nilai fitness terbaik
+% Display the best fitness value
 disp(['Nilai fitness terbaik: ' num2str(gbest(end))]);
 
-% Tampilkan nilai gen terbaik
+% Display the best gene values
 disp(['Nilai gen terbaik: ' num2str(gbest(1:gen))]);
 
-
-
-% Plot nilai fitness terbaik di setiap iterasi
+% Plot the best fitness value in each iteration
 plot(best_fitness);
 xlabel('Iterasi');
 ylabel('Fitness');
 title('Nilai Fitness Terbaik di Setiap Iterasi');
 
-
-
 % Functions required
-
 function total = hitung_total(a, q, l, b)
     total = a * q * l * b;
 end
