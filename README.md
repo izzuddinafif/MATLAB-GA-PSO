@@ -17,6 +17,7 @@ This repository contains MATLAB scripts for solving an optimization problem usin
 ## Usage
 
 For information on how to use this script, see the [User Guide](docs/user_guide.md).
+For an example of how to use the Hybrid-GA-PSO-MATLAB code, please see the [Example Usage](docs/example_usage.md) file.
 
 ## Development
 
