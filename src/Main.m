@@ -69,11 +69,6 @@ disp(['Nilai fitness terbaik: ' num2str(gbest(end))]);
 % Display the best gene values
 disp(['Nilai gen terbaik: ' num2str(gbest(1:gen))]);
 
-% Plot the best fitness value in each iteration
-plot(best_fitness);
-xlabel('Iterasi');
-ylabel('Fitness');
-title('Nilai Fitness Terbaik di Setiap Iterasi');
 
 % Functions required
 function total = hitung_total(a, q, l, b)
