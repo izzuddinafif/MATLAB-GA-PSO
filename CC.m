@@ -30,6 +30,9 @@ lb_UCC = 0.8;       % Batas bawah UCC
 w = 0.5;            % Inersia
 c1 = 1;             % Faktor kognitif
 c2 = 1;             % Faktor sosial
+% Inisialisasi faktor kognitif dan sosial secara acak
+c1rand = rand();
+c2rand = rand();
 
 
 %% Inisialisasi
@@ -50,6 +53,7 @@ best_fitness = 0;
 best_posisi = zeros(1, gen);
 best_fitness_iterasi = zeros(1, max_iterasi);
 best_posisi_iterasi = zeros(max_iterasi, gen);
+wv = zeros(popsize, gen); % Velocity matrix
 
 % Iterasi GA-PSO
 
@@ -142,4 +146,89 @@ while iterasi <= max_iterasi
     max_iterasi_pso = 100;
 
     while iterasi_pso <= max_iterasi_pso
+
+        % Update kecepatan
+        for i = 1:popsize
+            v(i, :) = wv(i, :) + c1rand*(pbest_posisi(i, :) - populasi_baru(i, :)) + c2rand(gbest_posisi - populasi_baru(i, :));
+        end
+        % Update posisi
+        for i = 1:popsize
+            populasi_baru(i, :) = populasi_baru(i, :) + v(i, :);
+            % Perbaiki jika ada posisi yang melebihi batas
+            if populasi_baru(i, 1) > ub_nCC
+                populasi_baru(i, 1) = ub_nCC;
+            elseif populasi_baru(i, 1) < lb_nCC
+                populasi_baru(i, 1) = lb_nCC;
+            end
+            if populasi_baru(i, 2) > ub_UCC
+                populasi_baru(i, 2) = ub_UCC;
+            elseif populasi_baru(i, 2) < lb_UCC
+                populasi_baru(i, 2) = lb_UCC;
+            end
+        end
+    
+        % Evaluasi fitness
+        for i = 1:popsize
+            nCC = populasi_baru(i, 1);
+            UCC = populasi_baru(i, 2);
+            tCC = 21; % jam
+            PCC = 100/((nCC*UCC)/tCC); % box/hari
+            if (PCC >= 26 && PCC <= 36)
+                fitness = 1/PCC;
+            else
+                fitness = 0; % Jika nilai PCC di luar range, fitness = 0
+            end
+            % Update pbest
+            if fitness > pbest_fitness(i)
+                pbest_fitness(i) = fitness;
+                pbest_posisi(i, :) = populasi_baru(i, :);
+            end
+            % Update gbest
+            if fitness > gbest_fitness
+                gbest_fitness = fitness;
+                gbest_posisi = populasi_baru(i, :);
+            end
+        end
+    
+        % Tambah iterasi PSO
+        iterasi_pso = iterasi_pso + 1;
+    end
+    
+    % Tambah iterasi GA-PSO
+    iterasi = iterasi + 1;
+    
+    % Tambah ke array hasil
+    best_fitness_iterasi(iterasi-1) = gbest_fitness;
+    best_posisi_iterasi(iterasi-1, :) = gbest_posisi;
+    
+    % Periksa kriteria berhenti
+    if iterasi > max_iterasi
+        break;
+    end
+    
+    % Ganti populasi lama dengan populasi baru
+    populasi = populasi_baru;
+    
+    % Tampilkan hasil setiap iterasi
+    fprintf('Iterasi: %d, Fitness: %f, Posisi: %s\n', iterasi-1, gbest_fitness, num2str(gbest_posisi));
+end
+
+% Plot grafik hasil iterasi
+figure;
+subplot(2,1,1);
+plot(best_fitness_iterasi);
+title('Grafik Fitness Terbaik Iterasi');
+xlabel('Iterasi');
+ylabel('Fitness Terbaik');
+subplot(2,1,2);
+plot(best_posisi_iterasi(:,1));
+hold on;
+plot(best_posisi_iterasi(:,2));
+title('Grafik Posisi Terbaik Iterasi');
+xlabel('Iterasi');
+ylabel('Posisi Terbaik');
+legend('nCC', 'UCC');
+hold off;
+
+
         

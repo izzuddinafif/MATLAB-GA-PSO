@@ -1,11 +1,11 @@
 % Parameter GA-PSO
 close all; clc; clear;
-max_iterasi = 100;
-popsize = 5;
+max_iterasi = 1000;
+popsize = 100;
 gen = 2;
 pc = 0.8;
 pm = 0.01;
-ub_nCC = 10;
+ub_nCC = 1000;
 lb_nCC = 1;
 ub_UCC = 1.0;
 lb_UCC = 0.8;
@@ -44,10 +44,10 @@ for iterasi = 1:max_iterasi
     
     % Simpan nilai fitness terbaik
     best_fitness(iterasi) = gbest(end);
-    disp(['Iterasi ' num2str(iterasi) ': nCC = ' num2str(round(gbest(1))) ', UCC = ' num2str(gbest(2)) ', PCC = ' num2str(gbest(3)) ', Fitness = ' num2str(gbest(4))]);
+    disp(['Iterasi ' num2str(iterasi) ': nCC = ' num2str(gbest(1)) ', UCC = ' num2str(gbest(2)) ', PCC = ' num2str(gbest(3)) ', Fitness = ' num2str(gbest(4))]);
 end
 
-disp(['Hasil terbaik: nCC = ' num2str(round(gbest(1))) ', UCC = ' num2str(gbest(2)) ', PCC = ' num2str(gbest(3)) ', Fitness = ' num2str(gbest(4))]);
+disp(['Hasil terbaik: nCC = ' num2str(gbest(1)) ', UCC = ' num2str(gbest(2)) ', PCC = ' num2str(gbest(3)) ', Fitness = ' num2str(gbest(4))]);
 
 % Visualisasi grafik
 figure;
