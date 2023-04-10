@@ -4,7 +4,7 @@ This user guide will walk you through using the MATLAB-004 scripts for the Hybri
 
 ## Running the Script
 
-1. Open the main script `MATLAB-004.m` in MATLAB.
+1. Open the main script `main.m` in MATLAB.
 2. Modify the parameters as needed for your optimization problem. The parameters include population size, number of generations, crossover probability, mutation probability, and variable bounds.
 3. Run the script by clicking the "Run" button or pressing `F5`.
 

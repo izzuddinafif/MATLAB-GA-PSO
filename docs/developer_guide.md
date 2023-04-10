@@ -4,7 +4,7 @@ This developer guide will provide an overview of the MATLAB-004 scripts' structu
 
 ## Script Structure
 
-The main script `MATLAB-004.m` contains the core algorithm and calls functions for initialization, selection, crossover, mutation, evaluation, and updating the particle swarm. These functions are defined in the same script for simplicity.
+The main script `main.m` contains the core algorithm and calls functions for initialization, selection, crossover, mutation, evaluation, and updating the particle swarm. These functions are defined in the same script for simplicity.
 
 ### Functions
 
@@ -22,6 +22,8 @@ To customize the optimization problem, you need to modify the following function
 
 1. `hitung_total(a, q, l, b)`: This function calculates the objective function using the given parameters (a, q, l, and b). Replace the existing calculation with your problem's objective function.
 2. `hitung_fitness(total)`: This function calculates the fitness value based on the total value computed by `hitung_total()`. Modify this function to fit your problem's fitness criteria.
+3. `init_populasi()`: This function initializes the population for the genetic algorithm. Modify the `populasi` variable to fit your problem's constraints.
+4. etc.
 
 ## Adding New Algorithms
 
