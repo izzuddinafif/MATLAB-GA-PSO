@@ -21,7 +21,7 @@ This MATLAB project implements a hybrid optimization algorithm that combines Gen
 
 1. Clone this repository to your local machine.
 ```bash
-git clone https://github.com/yourusername/GA-PSO-Optimization.git
+git clone https://github.com/izzuddinafif/MATLAB-GA-PSO.git
 ```
 2. Open MATLAB and navigate to the project directory.
 ### Usage
