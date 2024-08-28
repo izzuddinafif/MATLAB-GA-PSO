@@ -1,46 +1,45 @@
-# Example Usage of MATLAB-004: Hybrid Genetic Algorithm and Particle Swarm Optimization
+# Example Usage
 
-This example demonstrates how to use the MATLAB code for optimizing a given problem.
+## Problem Statement
 
-## Step 1: Set up problem parameters
+Let's say we want to optimize three variables `x1`, `x2`, and `x3` using a custom formula to find the best values that meet a specific criterion.
 
-Set the problem parameters according to your specific problem:
+## Custom Setup
 
+1. Open `main_script.m`.
+    
+2. Set the following parameters:
 ```matlab
-max_iterasi = 1000;
-popsize = 100;
-gen = 3;
-pc = 0.8;
-pm = 0.01;
-ub_a = 0.9;
-lb_a = 0.7;
-ub_q = 12;
-lb_q = 1;
-ub_l = 2.5;
-lb_l = 1.0;
+max_iterations = 1000;
+population_size = 100;
+gen_count = 3;
+crossover_prob = 0.8;
+mutation_prob = 0.01;
+upper_bounds = [0.9, 12, 2.5];
+lower_bounds = [0.7, 1, 1.0];
 w = 0.5;
-c1 = 1;
-c2 = 1;
-b = 21; % constant
+c1 = 1.0;
+c2 = 1.0;
 ```
-
-## Step 2: Run the main script
-
-Execute the main script with the specified parameters:
-
+3. Define your custom fitness function:
 ```matlab
-[best_fitness, best_gen] = main(max_iterasi, popsize, gen, pc, pm, lb_a, ub_a, lb_q, ub_q, lb_l, ub_l, w, c1, c2, b);
+function total = calculate_total(variables, constant)
+    % Custom logic for total calculation
+    total = variables(1)^2 + 2*variables(2) + log(variables(3) + constant);
+end
+
+function fitness = calculate_fitness(total)
+    % Custom logic for fitness calculation
+    target = 50; % Example target value
+    fitness = 1 / (1 + abs(total - target));
+end
 ```
+4. Run the script.
+## Output Interpretation
 
-## Step 3: Interpret the results
+After running the script, MATLAB will output:
 
-After running the code, you will obtain the `best_fitness` and `best_gen` as outputs. These represent the best fitness value achieved and the corresponding best gen values (parameters) found by the Hybrid-GA-PSO  algorithm.
+- The best fitness value found.
+- The corresponding optimized values for `x1`, `x2`, and `x3`.
 
-Print the results:
-
-```matlab
-disp(['Best fitness: ', num2str(best_fitness)]);
-disp(['Best gen values: ', num2str(best_gen)]);
-```
-
-This example demonstrates how to use the MATLAB code to optimize a given problem by setting appropriate parameters and running the main script. The output will display the best fitness value and corresponding best gen values (parameters) found by the algorithm.
+This tells you the optimal set of parameters for your specific problem using your custom-defined functions.

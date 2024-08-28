@@ -1,40 +1,57 @@
 # Developer Guide
 
-This developer guide will provide an overview of the MATLAB-004 scripts' structure and how to modify the code for different optimization problems or algorithms.
+## Overview
 
-## Script Structure
+This guide is intended for developers who want to understand, modify, or extend the GA-PSO hybrid optimization algorithm.
 
-The main script `main.m` contains the core algorithm and calls functions for initialization, selection, crossover, mutation, evaluation, and updating the particle swarm. These functions are defined in the same script for simplicity.
+## Code Structure
 
-### Functions
+- **`main_script.m`**: Contains the main loop for the GA-PSO algorithm and the initialization of parameters.
 
-- `init_populasi()`: Initializes the population for the genetic algorithm.
-- `init_pso()`: Initializes the particles for particle swarm optimization.
-- `seleksi_roulette_wheel()`: Selects parents for crossover using the roulette wheel selection method.
-- `crossover()`: Performs crossover between two parents to create offspring.
-- `mutasi()`: Applies mutation to the offspring.
-- `eval_fitness()`: Evaluates the fitness of particles.
-- `update_pso()`: Updates the particle swarm based on the best position and global best position.
+## Function Descriptions
 
-## Customizing the Problem
+### Initialization Functions
 
-To customize the optimization problem, you need to modify the following functions:
+- `init_population`: Initializes the population for the genetic algorithm.
+- `init_pso`: Initializes the particles for the PSO.
 
-1. `hitung_total(a, q, l, b)`: This function calculates the objective function using the given parameters (a, q, l, and b). Replace the existing calculation with your problem's objective function.
-2. `hitung_fitness(total)`: This function calculates the fitness value based on the total value computed by `hitung_total()`. Modify this function to fit your problem's fitness criteria.
-3. `init_populasi()`: This function initializes the population for the genetic algorithm. Modify the `populasi` variable to fit your problem's constraints.
-4. etc.
+### Genetic Algorithm Functions
 
-## Adding New Algorithms
+- `roulette_wheel_selection`: Selects parents based on their fitness.
+- `crossover`: Performs crossover between two parents to produce offspring.
+- `mutation`: Mutates the offspring with a given probability.
 
-To add new optimization algorithms to the script, follow these steps:
+### Particle Swarm Optimization Functions
 
-1. Define a new function for the algorithm in the main script or create a separate script for the algorithm.
-2. In the main script, call the new function where appropriate, e.g., during the initialization, evaluation, or updating phases.
-3. Modify the `hitung_total()` and `hitung_fitness()` functions to accommodate the new algorithm if necessary.
+- `evaluate_fitness`: Evaluates the fitness of particles.
+- `update_pso`: Updates the position of particles.
 
-## Tips for Extending the Code
+### Fitness Calculation
 
-- Keep functions modular and focused on specific tasks to make it easier to modify and debug the code.
-- Add comments to explain the purpose and behavior of each function and variable.
-- Test the new algorithm independently before integrating it with the existing code.
+- `calculate_total`: Calculates the total value based on the input variables.
+- `calculate_fitness`: Calculates the fitness based on the total value.
+
+### Using Custom Functions
+
+To use your own functions for optimization:
+
+1. **Define Custom Calculation Functions**:
+    
+    - Update the `calculate_total` function to use your custom formula or logic.
+    - Modify the `calculate_fitness` function to calculate the fitness based on your specific criteria.
+2. **Example Customization**:
+```matlab
+function total = calculate_total(variables, constant)
+    % Replace this with your custom logic
+    total = sum(variables) + constant;
+end
+
+function fitness = calculate_fitness(total)
+    % Replace this with your custom fitness logic
+    fitness = 1 / (1 + abs(total - target));
+end
+```
+3.  **Adapt the `main_script.m`**:
+    
+    - Ensure `gen_count`, `upper_bounds`, and `lower_bounds` are set according to the number of variables your custom functions require.
+4. **Testing**: Run the script and verify the results based on your specific problem.

@@ -1,20 +1,57 @@
 # User Guide
+## Overview
 
-This user guide will walk you through using the MATLAB-004 scripts for the Hybrid Genetic Algorithm and Particle Swarm Optimization.
+This guide will help you understand how to use the GA-PSO hybrid optimization algorithm implemented in MATLAB. This algorithm combines Genetic Algorithm (GA) and Particle Swarm Optimization (PSO) to optimize a set of parameters.
 
-## Running the Script
+## Getting Started
 
-1. Open the main script `main.m` in MATLAB.
-2. Modify the parameters as needed for your optimization problem. The parameters include population size, number of generations, crossover probability, mutation probability, and variable bounds.
-3. Run the script by clicking the "Run" button or pressing `F5`.
+### Prerequisites
 
-## Customizing the Problem
+- MATLAB installed on your computer.
+- Basic knowledge of MATLAB and optimization algorithms.
 
-To customize the optimization problem, you need to modify the following functions:
+### Files Overview
 
-1. `hitung_total(a, q, l, b)`: This function calculates the objective function using the given parameters (a, q, l, and b). Replace the existing calculation with your problem's objective function.
-2. `hitung_fitness(total)`: This function calculates the fitness value based on the total value computed by `hitung_total()`. Modify this function to fit your problem's fitness criteria.
+- `main_script.m`: The main script that runs the GA-PSO optimization.
 
-## Interpreting the Results
+### Running the Algorithm
 
-After running the script, the best fitness value and corresponding variable values will be displayed in the MATLAB command window. You can analyze the results to determine the optimal solution for your problem based on the best fitness value and corresponding variable values.
+1. Open MATLAB.
+2. Load the script `main_script.m`.
+3. Modify the parameters at the top of the script as needed.
+4. Run the script.
+
+### Parameters Description
+
+- `max_iterations`: Maximum number of iterations for the optimization.
+- `population_size`: Number of individuals/particles in the population.
+- `gen_count`: Number of genes/variables to optimize.
+- `crossover_prob`: Probability of crossover in GA.
+- `mutation_prob`: Probability of mutation in GA.
+- `upper_bounds`: Array of upper bounds for each variable.
+- `lower_bounds`: Array of lower bounds for each variable.
+- `w`: Inertia weight for PSO.
+- `c1`: Cognitive coefficient for PSO.
+- `c2`: Social coefficient for PSO.
+
+## Using Custom Fitness Functions
+
+To optimize the genes using your own functions, follow these steps:
+
+1. **Define Your Custom Functions**: Modify the `calculate_total` and `calculate_fitness` functions to reflect your specific optimization problem.
+    
+    Example:
+```matlab
+function total = calculate_total(variables, constant)
+    % Your custom calculation here
+    total = custom_calculation(variables, constant);
+end
+
+function fitness = calculate_fitness(total)
+    % Your custom fitness calculation here
+    fitness = custom_fitness_calculation(total);
+end
+```
+1. **Update `main_script.m`**: Ensure that the `gen_count`, `upper_bounds`, and `lower_bounds` parameters match the number of variables in your custom functions.
+    
+2. **Run the Algorithm**: Execute the script with your custom-defined functions to optimize the parameters according to your problem.
